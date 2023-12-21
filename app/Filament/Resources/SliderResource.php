@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MenuResource\Pages;
-use App\Filament\Resources\MenuResource\RelationManagers;
-use App\Models\Menu;
+use App\Filament\Resources\SliderResource\Pages;
+use App\Filament\Resources\SliderResource\RelationManagers;
+use App\Models\Slider;
 use Filament\Forms;
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,9 +17,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MenuResource extends Resource
+class SliderResource extends Resource
 {
-    protected static ?string $model = Menu::class;
+    protected static ?string $model = Slider::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,14 +27,11 @@ class MenuResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->autofocus()->required(),
-                TextInput::make('url')->label('Link'),
-                TextInput::make('order')->required(),
-                Checkbox::make('new_window')
-                    ->default(false)
-                    ->autofocus()
-                    ->label('Diplay Page to new window'),
-                Toggle::make('status')->helperText('This will hide or show the sections')
+                Grid::make()->schema([
+                    TextInput::make('name')->autofocus()->required(),
+                    FileUpload::make('img')->autofocus()->image(),
+                    TextInput::make('order')->nullable(),
+                ])->columns(1)
             ]);
     }
 
@@ -68,9 +65,9 @@ class MenuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMenus::route('/'),
-            'create' => Pages\CreateMenu::route('/create'),
-            'edit' => Pages\EditMenu::route('/{record}/edit'),
+            'index' => Pages\ListSliders::route('/'),
+            'create' => Pages\CreateSlider::route('/create'),
+            'edit' => Pages\EditSlider::route('/{record}/edit'),
         ];
     }
 }

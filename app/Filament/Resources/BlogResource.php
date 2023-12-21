@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MenuResource\Pages;
-use App\Filament\Resources\MenuResource\RelationManagers;
-use App\Models\Menu;
+use App\Filament\Resources\BlogResource\Pages;
+use App\Filament\Resources\BlogResource\RelationManagers;
+use App\Models\Blog;
 use Filament\Forms;
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,33 +18,30 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MenuResource extends Resource
+class BlogResource extends Resource
 {
-    protected static ?string $model = Menu::class;
+    protected static ?string $model = Blog::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                TextInput::make('name')->autofocus()->required(),
-                TextInput::make('url')->label('Link'),
-                TextInput::make('order')->required(),
-                Checkbox::make('new_window')
-                    ->default(false)
-                    ->autofocus()
-                    ->label('Diplay Page to new window'),
-                Toggle::make('status')->helperText('This will hide or show the sections')
-            ]);
+        ->schema([
+            Grid::make()->schema([
+            TextInput::make('title')->autofocus()->required(),
+            RichEditor::make('description')->required(),
+            FileUpload::make('img')->autofocus()
+            ->image(),
+            ])->columns(1)
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('order')->searchable()->sortable(),
-                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('title')->searchable()->sortable(),
             ])
             ->filters([
                 //
@@ -68,9 +66,9 @@ class MenuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMenus::route('/'),
-            'create' => Pages\CreateMenu::route('/create'),
-            'edit' => Pages\EditMenu::route('/{record}/edit'),
+            'index' => Pages\ListBlogs::route('/'),
+            'create' => Pages\CreateBlog::route('/create'),
+            'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
 }

@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MenuResource\Pages;
-use App\Filament\Resources\MenuResource\RelationManagers;
-use App\Models\Menu;
+use App\Filament\Resources\AnnouncementResource\Pages;
+use App\Filament\Resources\AnnouncementResource\RelationManagers;
+use App\Models\Announcement;
 use Filament\Forms;
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,9 +18,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MenuResource extends Resource
+class AnnouncementResource extends Resource
 {
-    protected static ?string $model = Menu::class;
+    protected static ?string $model = Announcement::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,14 +28,11 @@ class MenuResource extends Resource
     {
         return $form
             ->schema([
+                Grid::make()->schema([
                 TextInput::make('name')->autofocus()->required(),
-                TextInput::make('url')->label('Link'),
-                TextInput::make('order')->required(),
-                Checkbox::make('new_window')
-                    ->default(false)
-                    ->autofocus()
-                    ->label('Diplay Page to new window'),
-                Toggle::make('status')->helperText('This will hide or show the sections')
+                RichEditor::make('description')->required(),
+                FileUpload::make('img')->autofocus()->image(),
+                ])->columns(1)
             ]);
     }
 
@@ -42,7 +40,6 @@ class MenuResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('order')->searchable()->sortable(),
                 TextColumn::make('name')->searchable()->sortable(),
             ])
             ->filters([
@@ -68,9 +65,9 @@ class MenuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMenus::route('/'),
-            'create' => Pages\CreateMenu::route('/create'),
-            'edit' => Pages\EditMenu::route('/{record}/edit'),
+            'index' => Pages\ListAnnouncements::route('/'),
+            'create' => Pages\CreateAnnouncement::route('/create'),
+            'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
         ];
     }
 }
