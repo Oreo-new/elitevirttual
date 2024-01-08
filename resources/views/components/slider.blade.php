@@ -13,6 +13,6 @@
         </div>
     </div>
     <div class="logo absolute top-0 bottom-0 left-0 right-0 z-20"> 
-        <img src="{{asset('images/logo.png')}}" alt="Elite Virtual Logo" class=" absolute top-0 bottom-0 left-0 right-0 z-20 m-auto">
+        <img src="{{asset('images/logo.png')}}" alt="Elite Virtual Logo" class=" absolute top-0 bottom-0 left-0 right-0 z-20 m-auto" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
     </div>
 </div>

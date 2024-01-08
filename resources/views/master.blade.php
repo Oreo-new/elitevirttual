@@ -25,68 +25,48 @@
 
         {{-- Mission and Vission Section --}}
 
-        <section id="about" class="">
+        
+        <section class="py-20" id="about">
             <div class="container mx-auto px-4">
-                <div class="flex items-center py-32">
-                    @if($about)
-                       <div class="w-1/2">
-                            <img src="{{asset('storage/'.$about->img) }}" alt="Elite Virtual About us" class="w-[70%] mx-auto rounded-lg">
-                        </div>
-                        <div class="w-1/2">
-                            <h2 class="roboto uppercase text-[35px] text-black font-semibold mb-4 underline underline-offset-8">{{$about->title}}</h2>
-                            {!! $about->description !!}
-                        </div> 
-                    @endif
-                    
-                </div>
+                <x-about />
             </div>
         </section>
-
-        {{-- Mission and Vission Section --}}
-
-        <section id="mission-vision" class="bg-gradient-to-r from-cyan-500 to-blue-500">
-            <div class="container mx-auto px-4">
-                <div class="flex py-32">
-                    @if($mission && $vision)
-                       <div class="w-1/2 pr-4">
-                            <img src="{{asset('storage/'.$mission->img) }}" alt="Elite Virtual mission statement" class="w-[200px]">
-                            <h3 class="roboto uppercase text-[35px] text-white font-semibold mb-4 underline underline-offset-8">{{$mission->title}}</h3>
-                            {!! $mission->description !!}
-                        </div>
-                        <div class="w-1/2 pl-2">
-                            <img src="{{asset('storage/'.$vision->img) }}" alt="Elite Virtual vision statement" class="w-[200px]">
-                            <h3 class="roboto uppercase text-[35px] text-white font-semibold mb-4 underline underline-offset-8">{{$vision->title}}</h3>
-                            {!! $vision->description !!}
-                        </div> 
-                    @endif
-                </div>
-            </div>
-        </section>
+      
 
         <section id="photo" class="bg-center bg-fixed" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('{{ asset('images/elitephoto.jpg')}}')">
             <div class="container mx-auto px-4">
-                <div class="flex py-24 items-center">
-                    <img src="{{asset('images/header_logo.png')}}" alt="Elite Virtual Logo" class="w-28 mr-10">
-                    <h4 class="animate-charcter roboto text-center text-[70px] font-bold tracking-widest">Elite Virtual Specialist</h4>
+                <div class="flex py-32 items-center">
+                    
                     
                 </div>
             </div>
         </section>
          {{-- Services Section --}}
 
-        <section id="services" class="">
+        <section id="services" class="py-20">
             <div class="container mx-auto px-4">
-                <div class="py-32">
-                  <h3 class="text-center text-[40px] roboto uppercase mb-20 underline underline-offset-8 text-black font-semibold">Our Services</h3>
-                  <div class="grid grid-cols-5 gap-4 w-full">
+                <div class="">
+                  <h3 class="text-3xl poppins uppercase mb-10 text-black font-semibold" data-aos="fade-up" data-aos-anchor-placement="top-bottom">Our Services</h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    @php
+                        $counter = 0;
+                    @endphp
                     @foreach ( $services as $service)
-                        <div class="shadow px-4 py-6 rounded-md">
-                            @if($service->img)
-                                <img src="{{ asset('storage/'.$service->img) }}" alt="Elite Virtual Services - {{$service->title}}" class="w-[100px] mx-auto mb-4">
-                            @endif
-                            <h3 class="roboto text-2xl mb-4">{{$service->title}}</h3>
-                            {!! $service->description !!}
+                        @php
+                            $counter++;
+                            $count = sprintf('%02d', $counter );
+                        @endphp
+                        <div class="service shadow px-4 py-6 rounded-md relative cursor-pointer h-[300px] lg:h-[350px] flex items-center" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) )" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                            <span class="taviraj text-3xl text-white font-bold absolute top-4 left-4">{{  $count }}</span>
+                            <h3 class="poppins text-3xl  text-white text-center w-full">{{$service->title}}</h3>
+                            <div class="description absolute top-0 left-0 right-0 bottom-0 p-4 bg-[#10303e] rounded-md opacity-0 transition-opacity">
+                                <div class="flex items-center transition-all desc-h">
+                                    {!! $service->description !!}
+                                </div>   
+                            </div>
                         </div>
+
+                        
                     @endforeach
                   </div>
                 </div>
@@ -95,57 +75,23 @@
         
         {{-- Blog Section --}}
         @if($sectionBlog)
-            <section id="blog" class="bg-[#02202E]">
+            <section id="blog" class="bg-[#10303e] py-20">
                 <div class="container mx-auto px-4 overflow-hidden ">
-                    <div class="py-32">
-                    <h3 class="text-center text-[40px] roboto uppercase mb-10 underline underline-offset-8 text-white font-semibold ">blog</h3>
-                    @if($blogs)
-                        <div class="swiper2">
-                            <div class="swiper-wrapper">
-                                @foreach ($blogs as $blog)
-                                    @if($blog->img)
-                                        <div class="swiper-slide">
-                                            <div class="flex items-center">
-                                                <div class="w-1/2 pr-4">
-                                                    <h3 class="roboto uppercase text-[25px] text-white font-semibold mb-4">{{$blog->title}}</h3>
-                                                    {!! $blog->description !!}
-                                                </div>
-                                                <div class="w-1/2">
-                                                    <img src="{{asset('storage/'.$blog->img) }}" alt="Elite Virtual - {{$blog->title}}" class="w-[500px] mx-auto">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="swiper-slide">
-                                            <div class="flex">
-                                                <div class="w-full pr-4">
-                                                    <h3 class="roboto uppercase text-[25px] text-white font-semibold mb-4">{{$blog->title}}</h3>
-                                                    {!! $blog->description !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endforeach  
-                            </div>
-                            
-                        </div>
-                        
-                    @endif
-                        
-                    </div>
+                    <h3 class="text-3xl poppins uppercase mb-10 text-white font-semibold" data-aos="fade-up" data-aos-anchor-placement="top-bottom">Our Blog</h3>
+                    <x-blog />
                 </div>
             </section>
         @endif
 
         {{-- Blog Section --}}
         @if($sectionTeam)
-            <section id="team">
+            <section id="team" class="py-20">
                 <div class="container mx-auto px-4">
-                    <div class="py-32">
-                        <h3 class="text-center text-[40px] roboto uppercase mb-20 underline underline-offset-8 text-black font-semibold">Meet Our Team</h3>
-                        <div class="grid grid-cols-4 gap-4 w-full ">
+                    <div>
+                        <h3 class="text-center text-3xl poppins uppercase mb-20 underline underline-offset-8 text-black font-semibold" data-aos="fade-up" data-aos-anchor-placement="top-bottom">Meet Our Team</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full ">
                             @foreach ( $teams as $team)
-                                <div class="shadow px-4 py-6">
+                                <div class="shadow px-4 py-6" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                                     @if($team->img)
                                         <img src="{{ asset('storage/'.$team->img) }}" alt="Elite Virtual teams - {{$team->title}}" class="w-[150px] mx-auto mb-4 rounded-full">
                                     @endif
@@ -158,6 +104,33 @@
                 </div>
             </section>
         @endif
+
+        {{-- Works Section --}}
+        <section id="works" class="bg-[#10303e] py-20">
+            <div class="container mx-auto px-4 overflow-hidden ">
+                <h3 class="text-3xl poppins uppercase mb-10 text-white font-semibold" data-aos="fade-up" data-aos-anchor-placement="top-bottom">Our Recent Projects</h3>
+                @if($works)
+                    <div class="swiper2" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                        <div class="swiper-wrapper">
+                            @foreach ($works as $work)
+                                <div class="swiper-slide bg-[#10303e]">
+                                    <div class="h-[400px] pro relative " style="background: url('{{ asset('storage/'.$work->img) }}')">
+                                        <div class="description absolute top-0 left-0 right-0 bottom-0 p-4 bg-white  opacity-0 transition-opacity">
+                                            <div class="flex items-center transition-all h-[400px]">
+                                                <div class="w-full">
+                                                    <h4 class="poppins text-xl text-center uppercase font-bold mb-5">{{$work->name }}</h4>
+                                                    <a href="{{$work->link}}" class="text-white bg-[#10303e] p-2 poppins text-center w-full block" target="_blank">Visit link</a>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </section>
         {{-- Announcement Section --}}
         
         <section id="announcement" style="background-image:  url('{{ asset('images/announcement2.jpg')}}')" class="bg-center bg-fixed">
@@ -165,10 +138,10 @@
                 <div class="py-32">
                     @if($sectionAnnouncement)
                         @if($announcement)
-                            <div class="w-[700px] rounded-md shadow mx-auto p-6 bg-white" >
+                            <div class="lg:w-[700px] rounded-md shadow mx-auto p-6 bg-white" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                                 <div class="flex items-center justify-center mb-5">
                                     <img src="{{ asset('images/loudspeaker.png')}}" alt="Elite Virtual - Announcement icon" class="w-[50px] mr-2">
-                                    <h3 class="text-center text-black roboto text-[40px] ">Announcement</h3>
+                                    <h3 class="text-center text-black poppins text-[40px] ">Announcement</h3>
                                 </div>
                                 @if($announcement->img)
                                     <img src="{{asset('storage/'.$announcement->img)}}" alt="{{$announcement->name}}" class="max-w-[500px] mx-auto rounded">
@@ -186,12 +159,12 @@
 
         <section id="contact" class="relative">
             <div class="container mx-auto px-4 relative">
-                <div class="py-32">
-                    <h3 class="text-center text-[40px] roboto uppercase mb-20 underline underline-offset-8 text-black font-semibold">Contact Us</h3>
+                <div class="py-20">
+                    <h3 class="text-center text-3xl poppins uppercase mb-20 underline underline-offset-8 text-black font-semibold">Contact Us</h3>
                     
                     <div class="relative">
-                        <div class="w-full bg-[#02202E] flex py-20 px-10 rounded-bl-[300px]">
-                            <div class="w-1/2 pl-16">
+                        <div class="w-full bg-[#02202E] flex flex-wrap lg:flex-nowrap py-20 px-10">
+                            <div class="w-full lg:w-1/2 lg:pl-16" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                                 <p class="playfair text-white text-[40px]">We Redefine Excellence <br /> in Virtual Assistance.</p>
                                 <p class="roboto text-white mt-10 text-sm">Send us message and we'll get to your questions <br /> answered as soon as possible.</p>
                                 <div class="mt-10">
@@ -203,7 +176,7 @@
                                     <p class="roboto text-white text-sm">Call us <a href="tel:+639687078579" class="text-cyan-500" target="_blank">+639687078579</a>.</p>
                                 </div>
                             </div>
-                            <div class="w-1/2">
+                            <div class="w-full lg:w-1/2 mt-10 lg:mt-0" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                                 <x-contact />
                             </div>
                         </div>

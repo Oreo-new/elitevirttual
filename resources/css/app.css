@@ -2,10 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;500&display=swap');
 @import 'swiper/css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,200&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 .playfair{
     font-family: 'Playfair Display';
@@ -16,25 +18,42 @@
 .taviraj {
     font-family: 'Taviraj';
 }
-#about p{
-    font-family: 'Taviraj';
-    @apply text-xl text-black;
+.poppins {
+    font-family: 'Poppins';
+}
+#about p {
+    font-family: 'Poppins';
+    @apply text-lg leading-normal mb-2;
 }
 #services p, #team p {
-    font-family: 'Taviraj';
-    @apply text-lg text-black;
+    font-family: 'Poppins';
+    @apply text-lg text-white text-center;
 }
-#mission-vision p, #blog p {
-    font-family: 'Taviraj';
-    @apply text-xl text-white;
+.service:hover .description {
+    opacity: 1 !important;
+}
+
+#blog .blog-desc {
+    font-family: 'Poppins';
+    @apply text-sm ;
+}
+#blog .modal-desc {
+    font-family: 'Poppins';
+    @apply text-sm mb-4 ;
 }
 #announcement p {
-    font-family: 'Taviraj';
-    @apply text-lg text-black;
+    font-family: 'Poppins';
+    @apply text-sm text-black;
+}
+.service:hover {
+    background: #02202E !important;
 }
 #header.active {
-    @apply bg-[#02202E];
+   @apply bg-[#02202E];
 }
+#mobile.active {
+    @apply bg-[#02202E];
+ }
 .animate-charcter
 {
    text-transform: uppercase;
@@ -61,4 +80,34 @@
   to {
     background-position: 200% center;
   }
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+body.stop, body.stop2{
+    overflow: hidden;
+}
+[x-cloak]  {
+    display: none !important;
+}
+#works .pro {
+    background-size: cover !important;
+    background-position: center center !important;
+}
+#works .pro:hover .description {
+    opacity: 1 !important;
+}
+/* Tablet Modes */
+@media (min-width: 300px) and (max-width: 959px) {
+    #works .pro {
+        background-size: contain !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
 }
